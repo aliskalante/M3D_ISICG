@@ -1,0 +1,42 @@
+﻿  gl3w.c
+  imgui_impl_opengl3.cpp
+  imgui_impl_sdl.cpp
+  imgui.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  application.cpp
+  camera.cpp
+  triangle_mesh.cpp
+  triangle_mesh_model.cpp
+  lab_work_1.cpp
+  lab_work_manager.cpp
+  lab_work_2.cpp
+  lab_work_3.cpp
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(22,24): error C2065: 'vbo3' : identificateur non déclaré
+  main.cpp
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(23,31): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(24,29): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(35,11): error C3646: 'vbo3' : spécificateur de substitution inconnu
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(37,3): error C2143: erreur de syntaxe : absence de ';' avant '}'
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(35,4): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(88,24): error C2065: 'vbo3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(89,22): error C2065: 'vbo3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(91,29): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(92,30): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(93,30): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(95,4): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(95,13): error C2065: 'vbo3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(97,31): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(106,24): error C2065: 'ebo' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(107,22): error C2065: 'ebo' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(108,31): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(108,37): error C2065: 'ebo' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(113,30): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(114,30): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(115,30): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(115,39): error C2065: 'vbo3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(116,31): error C2065: 'vao3' : identificateur non déclaré
+C:\Users\alisk\Desktop\M3D_ISICG-main\M3D_ISICG-main\src\lab_works\lab_work_3\lab_work_3.cpp(152,22): error C2065: 'vao3' : identificateur non déclaré
+  image.cpp
+  Génération de code en cours...

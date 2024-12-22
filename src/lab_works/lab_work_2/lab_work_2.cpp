@@ -1,0 +1,170 @@
+#include "imgui.h"
+#include "lab_work_2.hpp"
+#include "utils/read_file.hpp"
+#include <iostream>
+#include <glm/gtc/type_ptr.hpp> 
+
+namespace M3D_ISICG
+{
+	const std::string LabWork2::_shaderFolder = "src/lab_works/lab_work_2/shaders/";
+	GLuint			  program2				  = GL_INVALID_INDEX;
+	GLuint			  vbo2;
+	GLuint			  vao2;
+	GLuint			  ebo;
+	GLuint			  vboCol; 
+	GLint			  uTranslationXLocation;
+	GLint			  luminositeLocation;
+	GLfloat			  time=0.0f;
+	GLfloat			  luminosite = 1.0f;
+	LabWork2::~LabWork2()
+	{
+		glDeleteProgram( program2 );
+		glDeleteBuffers( 1, &vbo2 );
+		glDisableVertexArrayAttrib( vao2, 0 );
+		glDeleteVertexArrays( 1, &vao2 );
+	}
+
+	bool LabWork2::init()
+	{
+		std::vector<Vec2f> vect;
+		std::vector<int>   vect_indice;
+		std::vector<float> vect_couleur;
+		const std::string  vertexShaderStr	 = readFile( _shaderFolder + "lw2.vert" );
+		const std::string  fragmentShaderStr = readFile( _shaderFolder + "lw2.frag" );
+		std::cout << "Initializing lab work 2..." << std::endl;
+		GLuint		   vertexShader = glCreateShader( GL_VERTEX_SHADER );
+		const GLchar * vSrc			= vertexShaderStr.c_str();
+
+		glShaderSource( vertexShader, 1, &vSrc, NULL );
+
+		GLuint		   fragmentShader = glCreateShader( GL_FRAGMENT_SHADER );
+		const GLchar * fSrc			  = fragmentShaderStr.c_str();
+		glShaderSource( fragmentShader, 1, &fSrc, NULL );
+
+		glCompileShader( fragmentShader );
+		glCompileShader( vertexShader );
+		GLint compiled;
+		glGetShaderiv( vertexShader, GL_COMPILE_STATUS, &compiled );
+
+		if ( !compiled )
+		{
+			GLchar log[ 1024 ];
+			glGetShaderInfoLog( vertexShader, sizeof( log ), NULL, log );
+			glDeleteShader( vertexShader );
+			glDeleteShader( fragmentShader );
+			std ::cerr << " Error compiling vertex shader : " << log << std ::endl;
+			return false;
+		}
+		program2 = glCreateProgram();
+		glAttachShader( program2, vertexShader );
+		glAttachShader( program2, fragmentShader );
+
+		glLinkProgram( program2 );
+
+		GLint linked;
+		glGetProgramiv( program2, GL_LINK_STATUS, &linked );
+		if ( !linked )
+		{
+			GLchar log[ 1024 ];
+			glGetProgramInfoLog( program2, sizeof( log ), NULL, log );
+			std ::cerr << " Error linking program : " << log << std ::endl;
+			return false;
+		}
+
+		vect.push_back( Vec2f( 0.5f, 0.5f ) );
+		vect.push_back( Vec2f( -0.5f, 0.5f ) );
+		vect.push_back( Vec2f( -0.5f, -0.5f ) );
+		vect.push_back( Vec2f( 0.5f, -0.5f ) );
+
+		glCreateBuffers( 1, &vbo2 );
+		glNamedBufferData( vbo2, vect.size() * sizeof( Vec2f ), vect.data(), GL_STATIC_DRAW );
+
+		glCreateVertexArrays( 1, &vao2 );
+		glEnableVertexArrayAttrib( vao2, 0 ); // activer l'attribut avertexposition du vao
+		glVertexArrayAttribFormat( vao2, 0, 2, GL_FLOAT, GL_FALSE, 0 );
+		glVertexArrayVertexBuffer(vao2, 0, vbo2, 0, sizeof( float ) * 2 ); // associer lindex 0 au vbo qui contient les somment pour que
+		// avertexposition prend chque foix un elemnt(sommet) de ce vbo
+		glVertexArrayAttribBinding( vao2, 0, 0 );
+		
+		vect_indice.push_back( 0 );
+		vect_indice.push_back( 1 );
+		vect_indice.push_back( 2 );
+
+		
+		vect_indice.push_back( 3 );
+		vect_indice.push_back( 2 );
+
+		glCreateBuffers( 1, &ebo );
+		glNamedBufferData( ebo, vect_indice.size() * sizeof( int ), vect_indice.data(), GL_STATIC_DRAW );
+		glVertexArrayElementBuffer( vao2, ebo );
+
+
+		vect_couleur = { 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
+		glCreateBuffers( 1, &vboCol );
+		glNamedBufferData( vboCol, vect_couleur.size() * sizeof( float ), vect_couleur.data(), GL_STATIC_DRAW );
+		glEnableVertexArrayAttrib( vao2, 1 ); 
+		glVertexArrayAttribFormat( vao2, 1, 3, GL_FLOAT, GL_FALSE, 0 );
+		glVertexArrayVertexBuffer( vao2, 1, vbo2, 0, sizeof( float ) * 3 );
+		glVertexArrayAttribBinding( vao2, 1, 1 );
+		
+		
+	 uTranslationXLocation = glGetUniformLocation( program2, "uTranslationX" );
+		// Valeur arbitraire pour la translation, ici on choisit 0.2f
+		glProgramUniform1f( program2, uTranslationXLocation, 0.2f );
+
+		luminositeLocation = glGetUniformLocation( program2, "luminosite" );
+
+		// Initialiser la luminosité
+		glProgramUniform1f( program2,luminositeLocation, luminosite );
+		
+		glDeleteShader( vertexShader );
+		glDeleteShader( fragmentShader );
+		// Set the color used by glClear to clear the color buffer (in render()).
+		glClearColor( _bgColor.x, _bgColor.y, _bgColor.z, _bgColor.w );
+
+		std::cout << "Done!" << std::endl;
+		return true;
+	}
+
+	void LabWork2::animate( const float p_deltaTime ) {
+		// Mettre à jour le temps total
+		time += p_deltaTime;
+
+		// Calculer une valeur entre -0.5 et 0.5 avec la fonction sin
+		float translationX = 0.5f * glm::sin( time );
+
+		// Assigner cette valeur à la variable uniform uTranslationX
+		glProgramUniform1f( program2, uTranslationXLocation, translationX );
+	}
+
+	void LabWork2::render()
+	{
+		glClear( GL_COLOR_BUFFER_BIT );
+		glUseProgram( program2 );
+		glBindVertexArray( vao2 );
+		glDrawElements( GL_TRIANGLES	, 6, GL_UNSIGNED_INT, 0 );
+		glBindVertexArray( 0 );
+	}
+
+	void LabWork2::handleEvents( const SDL_Event & p_event ) {}
+
+	void LabWork2::displayUI()
+	{
+		ImGui::Begin( "Settings lab work 1" );
+		// Créer un slider pour la luminosité (de 0 à 1)
+		if ( ImGui::SliderFloat( "luminosite", &luminosite, 0.0f, 1.0f ) )
+		{
+			// Si la luminosité est modifiée, mettre à jour l'uniform dans le shader
+			glProgramUniform1f( program2, luminositeLocation, luminosite );
+		}
+
+		// Palette de couleurs pour la couleur de fond
+		if ( ImGui::ColorEdit3( "Background Color", glm::value_ptr( _bgColor ) ) )
+		{
+			// Mettre à jour la couleur de fond OpenGL
+			glClearColor( _bgColor.x, _bgColor.y, _bgColor.z, _bgColor.w );
+		}
+		ImGui::End();
+	}
+
+} // namespace M3D_ISICG
